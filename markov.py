@@ -47,9 +47,7 @@ def sort_bigram(the_bigram):
 		print keys, the_bigram[keys]
 
 # need to define end of sentence as a period
-# need to check for duplicate keys and create multiple values for single keys
 # function to generate sentences from our dictionary
-# gets list of keys, passes that list to generator
 ''' 
 for random value, get the key. To get the next key, take the 2nd element of the key
 and the value of that key. Use that key pair to lookup the next value. Rough idea:
@@ -63,22 +61,32 @@ and the value of that key. Use that key pair to lookup the next value. Rough ide
 
 A while loop may be more suitable for this operation. Also needed: how do we stop the loop?
 '''	
-
 def generate_text(bigram_dict, text):
 	# get list of keys
 	bigram_keys = bigram_dict.keys()
 	# print a random bigram and value for each key in bigram dictionary
 	random_bigram = random.choice(bigram_keys)
+	value = bigram_dict[random_bigram]
+	key = random_bigram[0], random_bigram[1]
+	first_sentence = key[0] + " " + key[1] + " " + value[0]
 	# set first sentence based on bigram key and value
-	first_sentence = random_bigram, bigram_dict[random_bigram]
+	#first_sentence = random_bigram[0], random_bigram[1], bigram_dict[random_bigram]
 	# search for second value of key + value as the next key to add to your sentence
-	second_bigram = random_bigram[1], bigram_dict[random_bigram]
+	second_bigram = key[1] + " " + value[0]
+	second_sentence = bigram_dict[key[1], value[0]]
+	#third_bigram = second_bigram[1], bigram_dict[second_bigram]
+	#fourth_bigram = third_bigram[1], bigram_dict[third_bigram]
+
 	#second_sentence = bigram_dict[second_bigram]
 	#third_bigram = bigram_dict[bigram_dict[random_bigram]], bigram_dict[bigram_dict[second_bigram]]
 	# loop control variable
 	count = 0
 	while count < 1:
 		print first_sentence
+		#print second_bigram
+		print second_sentence[0]
+		#print third_bigram
+		#print fourth_bigram
 		#print second_sentence
 		#new_text += random_bigram[0] + " " + random_bigram[1] + " " + bigram_dict[random_bigram[0]] + " " + bigram_dict[random_bigram[1]] + " " + bigram_dict[second_bigram]
 		#print new_text
