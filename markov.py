@@ -2,7 +2,7 @@ from sys import argv
 import random
 
 file = argv[1]
-
+# making a comment to test new branch
 # open file for reading and assign file contents to variable filetext, return filetext
 def open_file(filename):
 	text = open(filename)
