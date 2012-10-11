@@ -20,12 +20,22 @@ def get_bigram(text):
 	bigram = {}
 	count = 0
 	# loop through the text and make key pairs, assign values
-	while count <= len(text) -3:
-		# 
+	while count <= len(text) - 3:
 		key_list = (text[count], text[count + 1])
-		bigram[key_list] = text[count+2]
+		value_list = [text[count + 2]]
+		#print value_list
+		# if the key does not exist, add it and it's value
+		if key_list not in bigram:
+			bigram[key_list] = value_list
+		# if the key does exist, append the new value to existing value
+		else:
+			bigram[key_list] = value_list.append(1)
 		count += 1
 	return bigram
+
+def sort_bigram(the_bigram):
+	for keys in sorted(the_bigram.iterkeys()):
+		print keys, the_bigram[keys]
 
 # need to define end of sentence as a period
 # need to check for duplicate keys and create multiple values for single keys
@@ -82,8 +92,9 @@ def main():
 	words = open_file(file)
 	words = split_words(words)
 	bigram_dictionary = get_bigram(words)
-	print bigram_dictionary
-	generate_text(bigram_dictionary, words)
+	#print bigram_dictionary
+	sort_bigram(bigram_dictionary)
+	#generate_text(bigram_dictionary, words)
 
 main()
 
