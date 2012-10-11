@@ -26,12 +26,21 @@ def get_bigram(text):
 		#print value_list
 		# if the key does not exist, add it and it's value
 		if key_list not in bigram:
+			#print "1"
 			bigram[key_list] = value_list
+			#print bigram[key_list]
 		# if the key does exist, append the new value to existing value
 		else:
-			bigram[key_list] = value_list.append(1)
+			#print "2"
+			#print key_list
+			#print bigram[key_list]
+			value_list.append(bigram[key_list])
+			bigram[key_list] = value_list
+			#print key_list
+			#print bigram[key_list]
 		count += 1
 	return bigram
+	print bigram
 
 def sort_bigram(the_bigram):
 	for keys in sorted(the_bigram.iterkeys()):
@@ -64,13 +73,13 @@ def generate_text(bigram_dict, text):
 	first_sentence = random_bigram, bigram_dict[random_bigram]
 	# search for second value of key + value as the next key to add to your sentence
 	second_bigram = random_bigram[1], bigram_dict[random_bigram]
-	second_sentence = bigram_dict[second_bigram]
+	#second_sentence = bigram_dict[second_bigram]
 	#third_bigram = bigram_dict[bigram_dict[random_bigram]], bigram_dict[bigram_dict[second_bigram]]
 	# loop control variable
 	count = 0
 	while count < 1:
 		print first_sentence
-		print second_sentence
+		#print second_sentence
 		#new_text += random_bigram[0] + " " + random_bigram[1] + " " + bigram_dict[random_bigram[0]] + " " + bigram_dict[random_bigram[1]] + " " + bigram_dict[second_bigram]
 		#print new_text
 		count += 1
@@ -92,9 +101,9 @@ def main():
 	words = open_file(file)
 	words = split_words(words)
 	bigram_dictionary = get_bigram(words)
-	#print bigram_dictionary
-	sort_bigram(bigram_dictionary)
-	#generate_text(bigram_dictionary, words)
+	#print bigram_dictionary["of", "her"]
+	#sort_bigram(bigram_dictionary)
+	generate_text(bigram_dictionary, words)
 
 main()
 
