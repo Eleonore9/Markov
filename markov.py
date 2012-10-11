@@ -49,20 +49,36 @@ def generate_text(bigram_dict):
 	#print bigram_keys
 	# print a random bigram and value for each key in bigram dictionary1
 		#print random_bigram
-	
+	random_bigram = random.choice(bigram_keys)
+	# search for second value of key + value as the next key to add to your sentence
+	second_bigram = random_bigram[1] , bigram_dict[random_bigram]
+
+
+''' 
+for random value, get the key. To get the next key, take the 2nd element of the key
+and the value of that key. Use that key pair to lookup the next value. Rough idea:
+
+		random => value
+		(a, b) =>  (c)
+		new_key => new_value
+		(b, c)	=> (d)
+		another_new_key => another_new_value
+		(c, d) = (e)
+
+A while loop may be more suitable for this operation. Also needed: how do we stop the loop?
+'''
 	for keys in bigram_dict.items():	
-		random_bigram = random.choice(bigram_keys)
-		start_sentence = random_bigram, bigram_dict[random_bigram]
-		print start_sentence
-		# search for second value of key + value as the next key to add to your sentence
-		second = random_bigram[1] , bigram_dict[random_bigram]
-		print second
+		start_sentence = random_bigram
+		next_word = bigram_dict[random_bigram]
+		print start_sentence, next_word
+		print second_bigram
 		#if bigram_dict[second] != None:
-		if second in bigram_dict:
-			print bigram_dict[second]
+		if second_bigram in bigram_dict:
+			print bigram_dict[second_bigram]
 		else:
 			print "not found"
-	
+		
+		second_bigram = second_bigram[1], bigram_dict[second_bigram]
 
 def main():
 	words = open_file(file)
