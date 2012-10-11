@@ -34,7 +34,7 @@ def get_bigram(text):
 			#print "2"
 			#print key_list
 			#print bigram[key_list]
-			value_list.append(bigram[key_list])
+			value_list.extend(bigram[key_list])
 			bigram[key_list] = value_list
 			#print key_list
 			#print bigram[key_list]
@@ -70,25 +70,27 @@ def generate_text(bigram_dict, text):
 	key = random_bigram[0], random_bigram[1]
 
 	# set first sentence based on bigram key and value
-	first_sentence = key[0] + " " + key[1] + " " + value[0]
+	#first_sentence = key[0] + " " + key[1] + " " + value[random.randint(0, len(value) - 1)]
 	# search for second value of key + value as the next key to add to your sentence
-	second_bigram = (key[1], value[0])
-	second_sentence = bigram_dict[second_bigram]
-	third_bigram = second_bigram[1], bigram_dict[second_bigram]
+	#second_bigram = (key[1], value[0])
+	#second_sentence = bigram_dict[second_bigram]
+	#third_bigram = second_bigram[1], bigram_dict[second_bigram]
 	#fourth_bigram = third_bigram[1], bigram_dict[third_bigram]
 	# loop control variable
 	#count = 0
 
 	sentence = key[0] + " " + key[1]
 	while True:
-		key = (key[1], value[0])
+		key = (key[1], value[random.randint(0, len(value) - 1)])
 		if key not in bigram_dict:
-			print "key not found"
+			#print "key not found"
+			#print "in if"
 			print sentence
 			return False
 		else:
+			#print "in else"
 			value = bigram_dict[key]
-			sentence += " " + value[0]
+			sentence += " " + value[random.randint(0, len(value) - 1)]
 		#sentence = key[0] + " " + key[1] + " " + value[0]
 		#print second_bigram
 		#print second_sentence[0]
