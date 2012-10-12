@@ -23,21 +23,13 @@ def get_bigram(text):
 	while count <= len(text) - 3:
 		key_list = (text[count], text[count + 1])
 		value_list = [text[count + 2]]
-		#print value_list
 		# if the key does not exist, add it and it's value
 		if key_list not in bigram:
-			#print "1"
 			bigram[key_list] = value_list
-			#print bigram[key_list]
 		# if the key does exist, append the new value to existing value
 		else:
-			#print "2"
-			#print key_list
-			#print bigram[key_list]
 			value_list.extend(bigram[key_list])
 			bigram[key_list] = value_list
-			#print key_list
-			#print bigram[key_list]
 		count += 1
 	return bigram
 	print bigram
@@ -47,7 +39,6 @@ def sort_bigram(the_bigram):
 		print keys, the_bigram[keys]
 
 # need to define end of sentence as a period
-# function to generate sentences from our dictionary
 ''' 
 for random value, get the key. To get the next key, take the 2nd element of the key
 and the value of that key. Use that key pair to lookup the next value. Rough idea:
@@ -61,65 +52,47 @@ and the value of that key. Use that key pair to lookup the next value. Rough ide
 
 A while loop may be more suitable for this operation. Also needed: how do we stop the loop?
 '''	
-def generate_text(bigram_dict, text):
+def generate_sentence(bigram_dict, text):
 	# get list of keys
 	bigram_keys = bigram_dict.keys()
 	# print a random bigram and value for each key in bigram dictionary
 	random_bigram = random.choice(bigram_keys)
 	value = bigram_dict[random_bigram]
 	key = random_bigram[0], random_bigram[1]
-
-	# set first sentence based on bigram key and value
-	#first_sentence = key[0] + " " + key[1] + " " + value[random.randint(0, len(value) - 1)]
-	# search for second value of key + value as the next key to add to your sentence
-	#second_bigram = (key[1], value[0])
-	#second_sentence = bigram_dict[second_bigram]
-	#third_bigram = second_bigram[1], bigram_dict[second_bigram]
-	#fourth_bigram = third_bigram[1], bigram_dict[third_bigram]
-	# loop control variable
-	#count = 0
-
-	sentence = key[0] + " " + key[1]
-	while True:
-		key = (key[1], value[random.randint(0, len(value) - 1)])
-		if key not in bigram_dict:
-			#print "key not found"
-			#print "in if"
-			print sentence
-			return False
+	sentence = key[0].capitalize() + " " + key[1]
+	counter = 0
+	while counter < 1:
+		word = value[random.randint(0, len(value)  - 1)]
+		if word[-1] in ".?!":
+			sentence += " " + word
+			#print sentence
+			counter +=1
+			return sentence
 		else:
-			#print "in else"
+			
+			sentence += " " + word
+			key = (key[1], value[random.randint(0, len(value)  - 1)])
 			value = bigram_dict[key]
-			sentence += " " + value[random.randint(0, len(value) - 1)]
-		#sentence = key[0] + " " + key[1] + " " + value[0]
-		#print second_bigram
-		#print second_sentence[0]
-		#print third_bigram
-		#print fourth_bigram
-		#print second_sentence
-		#new_text += random_bigram[0] + " " + random_bigram[1] + " " + bigram_dict[random_bigram[0]] + " " + bigram_dict[random_bigram[1]] + " " + bigram_dict[second_bigram]
-		#print new_text
+			#print sentence
 
-	# for keys in bigram_dict.items():	
-	# 	start_sentence = random_bigram
-	# 	next_word = bigram_dict[random_bigram]
-	# 	print start_sentence, next_word
-	# 	print second_bigram
-	# 	#if bigram_dict[second] != None:
-	# 	if second_bigram in bigram_dict:
-	# 		print bigram_dict[second_bigram]
-	# 	else:
-	# 		print "not found"
-		
-		#second_bigram = second_bigram[1], bigram_dict[second_bigram]
+
+
+def generate_text(bigram, sentence):
+	paragraph = ""
+	counter = 0
+	nb_sentences = int(raw_input("enter a number of sentences: "))
+	while counter < nb_sentences:
+		paragraph += generate_sentence(bigram, sentence) + " "
+		counter += 1
+	return paragraph
 
 def main():
 	words = open_file(file)
 	words = split_words(words)
 	bigram_dictionary = get_bigram(words)
-	#print bigram_dictionary["of", "her"]
-	#sort_bigram(bigram_dictionary)
-	generate_text(bigram_dictionary, words)
+	sentence = generate_text(bigram_dictionary, words)
+	print sentence
+	#generate_sentence(bigram_dictionary, words)
 
 main()
 
