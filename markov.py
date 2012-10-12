@@ -75,6 +75,25 @@ def generate_sentence(bigram_dict, text):
 			value = bigram_dict[key]
 			#print sentence
 
+def generate_tweet(bigram_dict, text):
+	# get list of keys
+	bigram_keys = bigram_dict.keys()
+	# print a random bigram and value for each key in bigram dictionary
+	random_bigram = random.choice(bigram_keys)
+	value = bigram_dict[random_bigram]
+	key = random_bigram[0], random_bigram[1]
+	sentence = key[0].capitalize() + " " + key[1]
+	
+	while len(sentence)+len(value[random.randint(0, len(value)  - 1)]) < 140:
+		word = value[random.randint(0, len(value)  - 1)]
+		sentence += " " + word
+		key = (key[1], value[random.randint(0, len(value)  - 1)])
+		value = bigram_dict[key]
+			
+	return sentence
+		
+			
+			
 
 
 def generate_text(bigram, sentence):
@@ -91,7 +110,11 @@ def main():
 	words = split_words(words)
 	bigram_dictionary = get_bigram(words)
 	sentence = generate_text(bigram_dictionary, words)
+	tweet = generate_tweet(bigram_dictionary, words)
 	print sentence
+	print "* * * * "
+	print tweet
+	print len(tweet)
 	#generate_sentence(bigram_dictionary, words)
 
 main()
